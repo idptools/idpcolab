@@ -2,23 +2,21 @@
 ##### Last update 2025-10-26
 
 ### Premade colab notebooks
-* **STARLING\_demo.ipynb** **[Open In Colab](https://colab.research.google.com/github/idptools/idpcolab/blob/main/STARLING/STARLING_demo.ipynb)** - this is the main STARLING colab notebook for generating 3D ensembels of IDPs. This notebook allows you to to:
+* **STARLING\_demo.ipynb** **[Open In Colab](https://colab.research.google.com/github/idptools/idpcolab/blob/main/STARLING/STARLING_demo.ipynb)** - this is the main STARLING colab notebook for generating 3D ensembels of IDPs. This notebook allows you to:
 	* Rapidly set up a STARLING environment
 	* Generate a STARLING ensemble
 	* Save that ensemble as a PDB, PDB/XTC, or .starling file 
 	* Build a scaling map to describe intra-residue distance distributions
 	* Generate histograms for the radius of gyration or inter-residue distance.
-	* In addition - if there are extra analyses you'd like to see here please don't hesitate to let use know!
+	* In addition, if there are extra analyses you'd like to see here, please don't hesitate to let us know!
 
 	
 ### Working with STARLING in a Colab environment
-Because STARLING is relatively simple to use and extremely fast, you can actually work in a colab environment to do meaningful science. To setup starling, create a blank Colab notebook and then copy the following into the first cell and run:
+Because STARLING is relatively simple to use and extremely fast, you can actually do meaningful science in a colab environment. To set up starling, create a blank Colab notebook and then copy the following into the first cell and run:
 
 
-	from IPython.display import display, HTML
-	import os, sys, subprocess, textwrap
-	from IPython.display import display, HTML, clear_output
-	
+    #@title STARLING setup
+	import os, subprocess	
 	def sh(cmd, check=True):
 	    """Run a shell command in a login bash so $PATH updates stick."""
 	    return subprocess.run(["bash", "-lc", cmd], check=check)
@@ -49,22 +47,14 @@ Because STARLING is relatively simple to use and extremely fast, you can actuall
 	def _final_message():
 	    import torch
 	    if not torch.cuda.is_available():
-	        display(HTML(
-	            ""
-	            "🚨 GPU not detected!"
-	            "Go to Runtime → Change runtime type → Hardware accelerator → GPU and select GPU if available; prediction is much much slower on a CPU."
-	            ""
-	        ))
+	        print('No GPU dectected - Go to Runtime → Change runtime type → Hardware accelerator → GPU and select GPU if available; prediction is much much slower on a CPU.')
 	    else:
 	        name = torch.cuda.get_device_name(0)
-	        display(HTML(
-	            f""
-	            f"✅ Setup complete. GPU active: {name}"
-	        ))
+	        f"Setup complete. GPU active: {name}"
 	    from starling import generate
 	    print('Downloading STARLING network weights (this only needs to happen once!)...')
-	    tmp = generate('EPEPEPEPEPE', conformations=1, verbose=False)
-	    print('Weights downloaded!')
+	    __tmp = generate('EPEPEPEPEPE', conformations=1, verbose=False)
+	    print('Weights downloaded!') 
 	
 	start()  # runs when this cell is executed
 
