@@ -47,7 +47,7 @@ Because STARLING is relatively simple to use and extremely fast, you can actuall
 	def _final_message():
 	    import torch
 	    if not torch.cuda.is_available():
-	        print('No GPU dectected - Go to Runtime → Change runtime type → Hardware accelerator → GPU and select GPU if available; prediction is much much slower on a CPU.')
+	        print('No GPU detected: Go to Runtime → Change runtime type → Hardware accelerator → GPU and select GPU if available; prediction is much much slower on a CPU.')
 	    else:
 	        name = torch.cuda.get_device_name(0)
 	        f"Setup complete. GPU active: {name}"
