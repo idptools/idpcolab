@@ -18,25 +18,14 @@ Because STARLING is relatively simple to use and extremely fast, you can actuall
 	from IPython.display import display, HTML
 	import os, sys, subprocess, textwrap
 	from IPython.display import display, HTML, clear_output
-	import ipywidgets as widgets
 	
 	def sh(cmd, check=True):
 	    """Run a shell command in a login bash so $PATH updates stick."""
 	    return subprocess.run(["bash", "-lc", cmd], check=check)
 	
 	def start():
-	    if CAPTURE_OUTPUT:
-	        print('Setting up STARLING environment...')
-	        from contextlib import redirect_stdout, redirect_stderr
-	        from io import StringIO
-	        _buf_out, _buf_err = StringIO(), StringIO()
-	        with redirect_stdout(_buf_out), redirect_stderr(_buf_err):
-	            _do_setup()
-	        # Show only a concise success / GPU status message
-	        _final_message()
-	    else:
-	        _do_setup()
-	        _final_message()
+	  _do_setup()
+	  _final_message()
 	
 	def _do_setup():
 	    print("Setting up environment…")
@@ -44,10 +33,10 @@ Because STARLING is relatively simple to use and extremely fast, you can actuall
 	    sh("curl -LsSf https://astral.sh/uv/install.sh | sh")
 	    # Add uv to PATH for the current Python process
 	    os.environ["PATH"] += f":{os.environ['HOME']}/.cargo/bin"
-	    # Use uv to install your package (quietly)
-	    sh("uv pip install -q idptools-starling")
-	    sh("uv pip install -q ipywidgets")
-	    sh("uv pip install -q afrc")
+	    
+	    # Use uv to install your package 
+	    sh("uv pip install idptools-starling")
+	    sh("uv pip install afrc")
 	
 	    # Optional: pre-import torch to check GPU
 	    import torch  # noqa: F401
